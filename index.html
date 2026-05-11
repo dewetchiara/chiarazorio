@@ -1,0 +1,1109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Architecture Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Helvetica+Neue:wght@100;200;400&family=Space+Mono&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --ink: #0e0e0c;
+      --stone: #c8c4bc;
+      --warm-white: #f5f3ef;
+      --accent: #b8a48a;
+      --rule: #d4d0c8;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--warm-white);
+      color: var(--ink);
+      font-family: 'Helvetica Neue', Helvetica, sans-serif;
+      font-weight: 200;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      padding: 1.6rem 3rem;
+      background: rgba(245, 243, 239, 0.92);
+      backdrop-filter: blur(8px);
+      mix-blend-mode: normal;
+    }
+
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.35rem;
+      font-weight: 300;
+      letter-spacing: 0.12em;
+      text-decoration: none;
+      color: var(--ink);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+      margin-left: 3rem;
+    }
+
+    .nav-links a {
+      font-size: 0.68rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--ink);
+      opacity: 0.6;
+      transition: opacity 0.2s;
+    }
+
+    .nav-links a:hover {
+      opacity: 1;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      position: relative;
+    }
+
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 6rem 3rem 4rem;
+      border-right: 1px solid var(--rule);
+    }
+
+    .hero-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.8rem;
+      font-family: 'Space Mono', monospace;
+    }
+
+    .hero-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3.5rem, 6vw, 7rem);
+      font-weight: 300;
+      line-height: 0.95;
+      letter-spacing: -0.01em;
+      margin-bottom: 2rem;
+    }
+
+    .hero-name em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .hero-tagline {
+      font-size: 0.82rem;
+      line-height: 1.8;
+      color: var(--ink);
+      opacity: 0.55;
+      max-width: 80ch;
+      margin-bottom: 2rem;
+      margin-left: 500px;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.8rem;
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--ink);
+      border-bottom: 1px solid var(--ink);
+      padding-bottom: 0.3rem;
+      width: fit-content;
+      transition: gap 0.3s;
+    }
+
+    .hero-cta:hover {
+      gap: 1.4rem;
+    }
+
+    .hero-right {
+      position: relative;
+      overflow: hidden;
+      background: #030303;
+      min-height: 500px;
+    }
+
+    .hero-right img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      opacity: 0.85;
+    }
+
+    .hero-index {
+      position: absolute;
+      bottom: 2rem;
+      right: 2rem;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      color: rgba(14, 14, 12, 0.4);
+    }
+
+    /* ── SECTION HEADERS ── */
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 1.5rem;
+      margin-bottom: 3.5rem;
+    }
+
+    .section-number {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.2em;
+      color: var(--accent);
+    }
+
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 300;
+      letter-spacing: 0.02em;
+    }
+
+    /* ── ABOUT ── */
+    .about {
+      padding: 7rem 3rem;
+      display: grid;
+      grid-template-columns: 1fr 1.8fr;
+      gap: 5rem;
+      border-top: 1px solid var(--rule);
+    }
+
+    .about-body p {
+      font-size: 1.05rem;
+      line-height: 1.85;
+      opacity: 0.65;
+      max-width: 60ch;
+    }
+
+    .about-body p+p {
+      margin-top: 1.2rem;
+    }
+
+    .about-stats {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .stat {
+      display: flex;
+      align-items: baseline;
+      gap: 1rem;
+      border-bottom: 1px solid var(--rule);
+      padding-bottom: 1rem;
+    }
+
+    .stat-number {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.5rem;
+      font-weight: 300;
+    }
+
+    .stat-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      opacity: 0.5;
+    }
+
+    /* ── SLIDESHOW ── */
+    .slideshow-section {
+      padding: 5rem 3rem 7rem;
+      border-top: 1px solid var(--rule);
+    }
+
+    .slideshow-wrap {
+      position: relative;
+    }
+
+    .slideshow {
+      position: relative;
+      width: 100%;
+      height: 70vh;
+      min-height: 480px;
+      background: var(--stone);
+      overflow: hidden;
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 0.9s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .slide.active {
+      opacity: 1;
+    }
+
+    .slide img,
+    .slide video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .slide-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 2.5rem 2rem 1.8rem;
+      background: linear-gradient(transparent, rgba(14, 14, 12, 0.55));
+      color: #f5f3ef;
+    }
+
+    .slide-caption h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem;
+      font-weight: 300;
+      margin-bottom: 0.3rem;
+    }
+
+    .slide-caption p {
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      opacity: 0.7;
+    }
+
+    /* Controls */
+    .slideshow-controls {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 1.5rem;
+    }
+
+    .slide-dots {
+      display: flex;
+      gap: 0.7rem;
+    }
+
+    .dot {
+      width: 20px;
+      height: 2px;
+      background: var(--stone);
+      cursor: pointer;
+      transition: background 0.3s, width 0.3s;
+      border: none;
+    }
+
+    .dot.active {
+      background: var(--ink);
+      width: 36px;
+    }
+
+    .slide-arrows {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .arrow-btn {
+      width: 44px;
+      height: 44px;
+      border: 1px solid var(--rule);
+      background: transparent;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s, border-color 0.2s;
+    }
+
+    .arrow-btn:hover {
+      background: var(--ink);
+      border-color: var(--ink);
+    }
+
+    .arrow-btn:hover svg path {
+      stroke: var(--warm-white);
+    }
+
+    .slide-counter {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      color: var(--ink);
+      opacity: 0.45;
+    }
+
+    /* ── PROJECTS GRID ── */
+    .projects {
+      padding: 5rem 3rem 7rem;
+      border-top: 1px solid var(--rule);
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+
+    .project-card {
+      position: relative;
+      overflow: hidden;
+      background: var(--stone);
+      aspect-ratio: 16/9;
+      cursor: pointer;
+      /* Remove default button/anchor styling */
+      text-decoration: none;
+      display: block;
+    }
+
+    .project-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+      display: block;
+    }
+
+    .project-card:hover img {
+      transform: scale(1.04);
+    }
+
+    .project-info {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 2rem 1.5rem 1.5rem;
+      background: linear-gradient(transparent, rgba(14, 14, 12, 0.65));
+      transform: translateY(3rem);
+      transition: transform 0.4s ease;
+      color: #f5f3ef;
+    }
+
+    .project-card:hover .project-info {
+      transform: translateY(0);
+    }
+
+    .project-info h4 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      font-weight: 300;
+      margin-bottom: 0.3rem;
+    }
+
+    .project-year {
+      position: absolute;
+      top: 1.2rem;
+      right: 1.2rem;
+      font-family: 'Space Mono', monospace;
+      font-size: 1.5rem;
+      letter-spacing: 0.12em;
+      color: rgba(0, 0, 0, 0.966);
+      font-weight: bold;
+    }
+
+    .project-year-2026 {
+      position: absolute;
+      top: 1.0rem;
+      right: 1.0rem;
+      font-family: 'Space Mono', monospace;
+      font-size: 1.5rem;
+      letter-spacing: 0.12em;
+      color: rgba(0, 0, 0, 0.966);
+      font-weight: bold;
+    }
+
+    .project-year-2023 {
+      position: absolute;
+      top: 1.2rem;
+      right: 1.2rem;
+      font-family: 'Space Mono', monospace;
+      font-size: 1.5rem;
+      letter-spacing: 0.12em;
+      color: rgba(255, 255, 255, 0.966);
+      font-weight: bold;
+    }
+
+    /* ── CONTACT ── */
+    .contact {
+      padding: 7rem 3rem;
+      border-top: 1px solid var(--rule);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+    }
+
+    .contact-intro p {
+      font-size: 1rem;
+      line-height: 1.85;
+      opacity: 0.6;
+      max-width: 38ch;
+    }
+
+    .contact-details {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .contact-item {
+      border-bottom: 1px solid var(--rule);
+      padding-bottom: 1.2rem;
+    }
+
+    .contact-item-label {
+      font-size: 0.62rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.4rem;
+      font-family: 'Space Mono', monospace;
+    }
+
+    .contact-item-value {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      font-weight: 300;
+    }
+
+    .contact-item-value a {
+      color: var(--ink);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s;
+    }
+
+    .contact-item-value a:hover {
+      border-color: var(--ink);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--rule);
+      padding: 2rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    footer p {
+      font-size: 0.65rem;
+      letter-spacing: 0.14em;
+      opacity: 0.35;
+    }
+
+    /* ── FADE-IN ANIMATION ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    .hero-title-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .hero-inline-img {
+      width: 700px;
+      height: 700px;
+      object-fit: cover;
+      margin-top: 0.5rem;
+      margin-left: 3.8rem;
+    }
+
+    .stat-block {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+
+    .stat-role {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-weight: 300;
+    }
+
+    .stat-year {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.15em;
+      color: var(--accent);
+    }
+
+    .stat-desc {
+      font-size: 0.78rem;
+      line-height: 1.7;
+      opacity: 0.6;
+    }
+
+    .about-body-reveal {
+      margin-top: 13rem;
+      margin-left: 28rem;
+    }
+
+    .bio-text {
+      font-size: 1.05rem;
+      line-height: 1.85;
+      opacity: 0.65;
+      max-width: 60ch;
+      text-align: center;
+    }
+
+    /* ── HAMBURGER ── */
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 36px;
+      height: 36px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      margin-left: auto;
+      padding: 4px;
+      z-index: 200;
+    }
+
+    .nav-hamburger span {
+      display: block;
+      width: 100%;
+      height: 1px;
+      background: var(--ink);
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+    .nav-mobile-menu {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 150;
+      background: var(--warm-white);
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 3rem;
+    }
+
+    .nav-mobile-menu.open {
+      display: flex;
+    }
+
+    .nav-mobile-menu a {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.5rem;
+      font-weight: 300;
+      letter-spacing: 0.08em;
+      text-decoration: none;
+      color: var(--ink);
+      opacity: 0.75;
+      transition: opacity 0.2s;
+    }
+
+    .nav-mobile-menu a:hover { opacity: 1; }
+
+    /* ── RESPONSIVE ── */
+
+    @media (max-width: 900px) {
+      nav { padding: 1.2rem 1.5rem; }
+
+      .nav-links { gap: 1.5rem; margin-left: 1.5rem; }
+
+      .hero { grid-template-columns: 1fr; min-height: unset; }
+
+      .hero-left {
+        padding: 7rem 1.5rem 3rem;
+        border-right: none;
+        border-bottom: 1px solid var(--rule);
+      }
+
+      .hero-tagline { margin-left: 0; }
+      .hero-title-row { flex-wrap: wrap; }
+
+      .hero-inline-img {
+        width: min(45%, 320px);
+        height: auto;
+        margin-left: 0;
+        aspect-ratio: 1 / 1;
+        object-fit: cover;
+      }
+
+      .hero-right { min-height: 55vw; }
+
+      .about {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+        padding: 5rem 1.5rem;
+      }
+
+      .about-body-reveal { margin-top: 0; margin-left: 0; }
+      .bio-text { text-align: left; max-width: 100%; }
+
+      .slideshow-section { padding: 4rem 1.5rem 5rem; }
+      .slideshow { height: 56vw; min-height: 320px; }
+
+      .projects { padding: 4rem 1.5rem 5rem; }
+      .projects-grid { grid-template-columns: 1fr 1fr; }
+
+      .contact {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+        padding: 5rem 1.5rem;
+      }
+
+      footer { padding: 1.5rem; }
+    }
+
+    @media (max-width: 600px) {
+      .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
+
+      .hero-left { padding: 6rem 1.2rem 2.5rem; }
+      .hero-title-row { flex-direction: column; gap: 1rem; }
+
+      .hero-inline-img {
+        width: 100%;
+        max-width: 260px;
+        height: auto;
+        margin-left: 0;
+      }
+
+      .hero-tagline { margin-left: 0; }
+      .hero-right { min-height: 65vw; }
+
+      .about { padding: 3.5rem 1.2rem; }
+      .about-body-reveal { margin-top: 0; margin-left: 0; }
+      .bio-text { text-align: left; font-size: 0.95rem; }
+
+      .slideshow-section { padding: 3rem 1.2rem 4rem; }
+      .slideshow { height: 64vw; min-height: 240px; }
+
+      .projects { padding: 3rem 1.2rem 4rem; }
+      .projects-grid { grid-template-columns: 1fr; }
+
+      .contact { padding: 3rem 1.2rem; }
+
+      footer {
+        padding: 1.5rem 1.2rem;
+        flex-direction: column;
+        gap: 0.4rem;
+        text-align: center;
+      }
+
+      .section-header { margin-bottom: 2rem; }
+    }
+
+    @media (max-width: 400px) {
+      .hero-name { font-size: clamp(2.6rem, 13vw, 3.5rem); }
+      .hero-inline-img { max-width: 200px; }
+
+      .project-year,
+      .project-year-2023,
+      .project-year-2026 { font-size: 1rem; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">Chiara Zorio De Wet</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#work">Work</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button class="nav-hamburger" id="hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- MOBILE MENU OVERLAY -->
+  <div class="nav-mobile-menu" id="mobileMenu">
+    <a href="#about" class="mobile-link">About</a>
+    <a href="#work" class="mobile-link">Work</a>
+    <a href="#contact" class="mobile-link">Contact</a>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-left">
+      <p class="hero-label">Architecture &amp; Design</p>
+      <div class="hero-title-row">
+        <h1 class="hero-name">Chiara<br><em>Zorio</em><br>Designs</h1>
+        <img src="Images/2026/BWME.jpeg" alt="Studio image" class="hero-inline-img">
+      </div>
+      <p class="hero-tagline">
+        Designing with intention — where technical craft meets the memory of hands that built before mine.
+      </p>
+    </div>
+    <div class="hero-right">
+      <model-viewer src="logo.glb" alt="3D Logo" auto-rotate camera-controls shadow-intensity="1"
+        style="width: 100%; height: 100%; background: transparent;"></model-viewer>
+      <span class="hero-index">01 / Hero</span>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div>
+      <div class="section-header reveal">
+        <span class="section-number">01</span>
+        <h2 class="section-title">About</h2>
+      </div>
+      <div class="about-stats reveal">
+        <div class="stat">
+          <span style="font-weight: bold;" class="stat-label-title">Work Experience</span>
+        </div>
+        <div class="stat">
+          <div class="stat-block">
+            <span class="stat-role">Tutor: Engineering & Graphics Design</span>
+            <span class="stat-year">2023</span>
+            <span class="stat-desc">Tutored Engineering and Graphics Design to Grade 8 and Grade 11 students.</span>
+          </div>
+        </div>
+        <div class="stat">
+          <div class="stat-block">
+            <span class="stat-role">Tennis Coach</span>
+            <span class="stat-year">2021 — Present</span>
+            <span class="stat-desc">Coaches tennis at the GameSetMatch Tennis Academy. Achieved Tennis Coach
+              Qualification (Play and Stay Certificate) in 2024 — Tennis South Africa.</span>
+          </div>
+        </div>
+        <div class="stat">
+          <span style="font-weight: bold;" class="stat-label-title">Professional Experience</span>
+        </div>
+        <div class="stat">
+          <div class="stat-block">
+            <span class="stat-role">Intern Architect — Creative Axis Architects</span>
+            <span class="stat-year">2025 — Present</span>
+            <span class="stat-desc">Required to complete 900 hours across 2nd and 3rd year of study at the University of
+              Johannesburg. Started June 17th 2025, currently continuing part time.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="about-body-reveal">
+      <p class="bio-text">
+        Architecture isn't just a career choice for me — it's a calling shaped by family, technical passion, and years
+        of dedicated study. Currently pursuing a Diploma in Architecture at UJ,
+        I combine proficiency in industry tools like AutoCAD and Revit with real-world experience gained through my
+        internship at Creative Axis Architects. I'm driven by precision,
+        design, and the ambition to leave my mark on the built environment.
+      </p>
+      <p class="bio-text">
+        Based in Johannesburg.
+      </p>
+    </div>
+  </section>
+
+  <!-- FEATURED SLIDESHOW -->
+  <section class="slideshow-section" id="work">
+    <div class="section-header reveal">
+      <span class="section-number">02</span>
+      <h2 class="section-title">Featured Work</h2>
+    </div>
+
+    <div class="slideshow-wrap reveal">
+      <div class="slideshow" id="mainSlideshow">
+
+        <!-- Slide 1 — preload auto so it's ready immediately -->
+        <div class="slide active">
+          <video muted loop playsinline webkit-playsinline preload="auto">
+            <source src="Videos/Video1-1.mp4" type="video/mp4">
+          </video>
+          <div class="slide-caption">
+            <h3>The Unity Nook</h3>
+            <p>Braamfontein &nbsp;2023</p>
+          </div>
+        </div>
+
+        <!-- Slides 2 & 3 — preload metadata only until activated -->
+        <div class="slide">
+          <video muted loop playsinline webkit-playsinline preload="metadata">
+            <source src="Videos/Video2-1.mp4" type="video/mp4">
+          </video>
+          <div class="slide-caption">
+            <h3>The Knowledge Courtyard</h3>
+            <p>Braamfontein &nbsp;2025</p>
+          </div>
+        </div>
+
+        <div class="slide">
+          <video muted loop playsinline webkit-playsinline preload="metadata">
+            <source src="Videos/Idp-1.mp4" type="video/mp4">
+          </video>
+          <div class="slide-caption">
+            <h3>Symbiotic Ruin</h3>
+            <p>Braamfontein &nbsp;2026</p>
+          </div>
+        </div>
+
+      </div><!-- /.slideshow -->
+
+      <div class="slideshow-controls">
+        <div class="slide-dots" id="slideDots"></div>
+        <span class="slide-counter" id="slideCounter">01 / 03</span>
+        <div class="slide-arrows">
+          <button class="arrow-btn" id="prevBtn" aria-label="Previous">
+            <svg width="18" height="12" viewBox="0 0 18 12" fill="none">
+              <path d="M18 6H2M6 1L2 6L6 11" stroke-width="1" stroke="currentColor" />
+            </svg>
+          </button>
+          <button class="arrow-btn" id="nextBtn" aria-label="Next">
+            <svg width="18" height="12" viewBox="0 0 18 12" fill="none">
+              <path d="M0 6H16M12 1L16 6L12 11" stroke-width="1" stroke="currentColor" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS GRID -->
+  <!-- Each card is now an <a> tag opening the PDF in a new tab.
+       This works on iOS, Android, and desktop without any JS or iframe. -->
+  <section class="projects">
+    <div class="section-header reveal">
+      <span class="section-number">03</span>
+      <h2 class="section-title">Noteable Projects</h2>
+    </div>
+    <div class="projects-grid">
+
+      <a class="project-card reveal" href="Images/2026/Symbiotic_Ruin.pdf" target="_blank" rel="noopener">
+        <img src="Images/2026/Symbioticfront.JPG" alt="Symbiotic Ruin">
+        <span class="project-year-2026">2026</span>
+        <div class="project-info"><h4>Symbiotic Ruin</h4></div>
+      </a>
+
+      <a class="project-card reveal" href="Images/2025/Final_2025.pdf" target="_blank" rel="noopener">
+        <img src="Images/2025/2025Front.png" alt="The Knowledge Courtyard">
+        <span class="project-year">2025</span>
+        <div class="project-info"><h4>The Knowledge Courtyard</h4></div>
+      </a>
+
+      <a class="project-card reveal" href="Images/2024/final_doc_2024.pdf" target="_blank" rel="noopener">
+        <img src="Images/2024/2024Front.png" alt="The Octave">
+        <span class="project-year">2024</span>
+        <div class="project-info"><h4>The Octave</h4></div>
+      </a>
+
+      <a class="project-card reveal" href="Images/2023/Final_2023_new.pdf" target="_blank" rel="noopener">
+        <img src="Images/2023/PhysicalModelFrontPage.png" alt="The Unity Nook">
+        <span class="project-year-2023">2023</span>
+        <div class="project-info"><h4>The Unity Nook</h4></div>
+      </a>
+
+      <div class="project-card reveal">
+        <img src="Images/2026/Inprogresspg.png" alt="In progress">
+        <span class="project-year">ETA - 2026</span>
+        <div class="project-info"><h4></h4></div>
+      </div>
+
+      <div class="project-card reveal">
+        <img src="Images/2026/Inprogresspg.png" alt="In progress">
+        <span class="project-year">ETA - 2026</span>
+        <div class="project-info"><h4></h4></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <div class="contact-intro">
+      <div class="section-header reveal">
+        <span class="section-number">04</span>
+        <h2 class="section-title">Contact</h2>
+      </div>
+      <p class="reveal">
+        Feel free to get in touch for collaborations, creative discussions, or project opportunities. I'm always open to
+        connecting and exploring meaningful ideas through architecture and design.
+      </p>
+    </div>
+    <div class="contact-details reveal">
+      <div class="contact-item">
+        <p class="contact-item-label">Email</p>
+        <p class="contact-item-value">
+          <a href="mailto:dewetchiara@gmail.com">dewetchiara@gmail.com</a>
+        </p>
+      </div>
+      <div class="contact-item">
+        <p class="contact-item-label">Phone</p>
+        <p class="contact-item-value">+27 60 528 9719</p>
+      </div>
+      <div class="contact-item">
+        <p class="contact-item-label">University</p>
+        <p class="contact-item-value">University of Johannesburg</p>
+      </div>
+      <div class="contact-item">
+        <p class="contact-item-label">LinkedIn</p>
+        <p class="contact-item-value">
+          <a href="https://www.linkedin.com/in/chiara-de-wet-965a0b257" target="_blank" rel="noopener">@chiara-de-wet</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2026 Chiara Zorio De Wet. All rights reserved.</p>
+    <p>Architecture &amp; Design</p>
+  </footer>
+
+  <script>
+    // ── SLIDESHOW ──────────────────────────────────────
+    const slides = document.querySelectorAll('.slide');
+    const dotsContainer = document.getElementById('slideDots');
+    const counter = document.getElementById('slideCounter');
+    let current = 0;
+    let autoTimer;
+
+    slides.forEach((_, i) => {
+      const dot = document.createElement('button');
+      dot.className = 'dot' + (i === 0 ? ' active' : '');
+      dot.setAttribute('aria-label', `Go to slide ${i + 1}`);
+      dot.addEventListener('click', () => goTo(i));
+      dotsContainer.appendChild(dot);
+    });
+
+    function playSlideVideo(slide) {
+      const video = slide.querySelector('video');
+      if (!video) return;
+      // Switch to full preload once the slide becomes active
+      video.preload = 'auto';
+      video.currentTime = 0;
+      const promise = video.play();
+      if (promise !== undefined) {
+        promise.catch(() => {
+          const retry = () => {
+            video.play().catch(() => {});
+          };
+          document.addEventListener('click', retry, { once: true });
+          document.addEventListener('touchstart', retry, { once: true });
+        });
+      }
+    }
+
+    function pauseOtherVideos(activeSlide) {
+      slides.forEach(slide => {
+        if (slide === activeSlide) return;
+        const video = slide.querySelector('video');
+        if (video) video.pause();
+      });
+    }
+
+    function goTo(n) {
+      slides[current].classList.remove('active');
+      dotsContainer.children[current].classList.remove('active');
+      current = (n + slides.length) % slides.length;
+      slides[current].classList.add('active');
+      dotsContainer.children[current].classList.add('active');
+      const pad = x => String(x + 1).padStart(2, '0');
+      counter.textContent = `${pad(current)} / ${pad(slides.length - 1)}`;
+      pauseOtherVideos(slides[current]);
+      playSlideVideo(slides[current]);
+    }
+
+    document.getElementById('nextBtn').addEventListener('click', () => { goTo(current + 1); resetAuto(); });
+    document.getElementById('prevBtn').addEventListener('click', () => { goTo(current - 1); resetAuto(); });
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'ArrowRight') { goTo(current + 1); resetAuto(); }
+      if (e.key === 'ArrowLeft')  { goTo(current - 1); resetAuto(); }
+    });
+
+    function startAuto() { autoTimer = setInterval(() => goTo(current + 1), 25000); }
+    function resetAuto() { clearInterval(autoTimer); startAuto(); }
+    startAuto();
+
+    window.addEventListener('load', () => playSlideVideo(slides[0]));
+
+    // ── HAMBURGER MENU ─────────────────────────────────
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    hamburger.addEventListener('click', () => {
+      const isOpen = mobileMenu.classList.toggle('open');
+      hamburger.classList.toggle('open', isOpen);
+      document.body.style.overflow = isOpen ? 'hidden' : '';
+    });
+
+    document.querySelectorAll('.mobile-link').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.remove('open');
+        hamburger.classList.remove('open');
+        document.body.style.overflow = '';
+      });
+    });
+
+    // ── SCROLL REVEAL ─────────────────────────────────
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+          setTimeout(() => e.target.classList.add('visible'), i * 80);
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+
+</body>
+
+</html>
