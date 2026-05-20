@@ -281,12 +281,39 @@
       opacity: 1;
     }
 
-    .slide img,
     .slide video {
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
+    }
+
+    /* Image slides: contain so the full image is always visible */
+    .slide-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Blurred version of same image fills letterbox areas */
+    .slide-image::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: var(--slide-bg);
+      background-size: cover;
+      background-position: center;
+      filter: blur(18px) brightness(0.45);
+      transform: scale(1.08);
+      z-index: 0;
+    }
+
+    /* Inset border removed */
+    .slide-image::after {
+      content: none;
     }
 
     .slide-caption {
@@ -586,8 +613,11 @@
     }
 
     .about-body-reveal {
-      margin-top: 13rem;
-      margin-left: 28rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
     }
 
     .bio-text {
@@ -622,9 +652,17 @@
       transition: transform 0.3s ease, opacity 0.3s ease;
     }
 
-    .nav-hamburger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
-    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
-    .nav-hamburger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+    .nav-hamburger.open span:nth-child(1) {
+      transform: translateY(6px) rotate(45deg);
+    }
+
+    .nav-hamburger.open span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .nav-hamburger.open span:nth-child(3) {
+      transform: translateY(-6px) rotate(-45deg);
+    }
 
     .nav-mobile-menu {
       display: none;
@@ -653,16 +691,26 @@
       transition: opacity 0.2s;
     }
 
-    .nav-mobile-menu a:hover { opacity: 1; }
+    .nav-mobile-menu a:hover {
+      opacity: 1;
+    }
 
     /* ── RESPONSIVE ── */
 
     @media (max-width: 900px) {
-      nav { padding: 1.2rem 1.5rem; }
+      nav {
+        padding: 1.2rem 1.5rem;
+      }
 
-      .nav-links { gap: 1.5rem; margin-left: 1.5rem; }
+      .nav-links {
+        gap: 1.5rem;
+        margin-left: 1.5rem;
+      }
 
-      .hero { grid-template-columns: 1fr; min-height: unset; }
+      .hero {
+        grid-template-columns: 1fr;
+        min-height: unset;
+      }
 
       .hero-left {
         padding: 7rem 1.5rem 3rem;
@@ -670,8 +718,13 @@
         border-bottom: 1px solid var(--rule);
       }
 
-      .hero-tagline { margin-left: 0; }
-      .hero-title-row { flex-wrap: wrap; }
+      .hero-tagline {
+        margin-left: 0;
+      }
+
+      .hero-title-row {
+        flex-wrap: wrap;
+      }
 
       .hero-inline-img {
         width: min(45%, 320px);
@@ -681,7 +734,9 @@
         object-fit: cover;
       }
 
-      .hero-right { min-height: 55vw; }
+      .hero-right {
+        min-height: 55vw;
+      }
 
       .about {
         grid-template-columns: 1fr;
@@ -689,14 +744,27 @@
         padding: 5rem 1.5rem;
       }
 
-      .about-body-reveal { margin-top: 0; margin-left: 0; }
-      .bio-text { text-align: left; max-width: 100%; }
+      .bio-text {
+        text-align: left;
+        max-width: 100%;
+      }
 
-      .slideshow-section { padding: 4rem 1.5rem 5rem; }
-      .slideshow { height: 56vw; min-height: 320px; }
+      .slideshow-section {
+        padding: 4rem 1.5rem 5rem;
+      }
 
-      .projects { padding: 4rem 1.5rem 5rem; }
-      .projects-grid { grid-template-columns: 1fr 1fr; }
+      .slideshow {
+        height: 56vw;
+        min-height: 320px;
+      }
+
+      .projects {
+        padding: 4rem 1.5rem 5rem;
+      }
+
+      .projects-grid {
+        grid-template-columns: 1fr 1fr;
+      }
 
       .contact {
         grid-template-columns: 1fr;
@@ -704,15 +772,28 @@
         padding: 5rem 1.5rem;
       }
 
-      footer { padding: 1.5rem; }
+      footer {
+        padding: 1.5rem;
+      }
     }
 
     @media (max-width: 600px) {
-      .nav-links { display: none; }
-      .nav-hamburger { display: flex; }
+      .nav-links {
+        display: none;
+      }
 
-      .hero-left { padding: 6rem 1.2rem 2.5rem; }
-      .hero-title-row { flex-direction: column; gap: 1rem; }
+      .nav-hamburger {
+        display: flex;
+      }
+
+      .hero-left {
+        padding: 6rem 1.2rem 2.5rem;
+      }
+
+      .hero-title-row {
+        flex-direction: column;
+        gap: 1rem;
+      }
 
       .hero-inline-img {
         width: 100%;
@@ -721,20 +802,43 @@
         margin-left: 0;
       }
 
-      .hero-tagline { margin-left: 0; }
-      .hero-right { min-height: 65vw; }
+      .hero-tagline {
+        margin-left: 0;
+      }
 
-      .about { padding: 3.5rem 1.2rem; }
-      .about-body-reveal { margin-top: 0; margin-left: 0; }
-      .bio-text { text-align: left; font-size: 0.95rem; }
+      .hero-right {
+        min-height: 65vw;
+      }
 
-      .slideshow-section { padding: 3rem 1.2rem 4rem; }
-      .slideshow { height: 64vw; min-height: 240px; }
+      .about {
+        padding: 3.5rem 1.2rem;
+      }
 
-      .projects { padding: 3rem 1.2rem 4rem; }
-      .projects-grid { grid-template-columns: 1fr; }
+      .bio-text {
+        text-align: left;
+        font-size: 0.95rem;
+      }
 
-      .contact { padding: 3rem 1.2rem; }
+      .slideshow-section {
+        padding: 3rem 1.2rem 4rem;
+      }
+
+      .slideshow {
+        height: 64vw;
+        min-height: 240px;
+      }
+
+      .projects {
+        padding: 3rem 1.2rem 4rem;
+      }
+
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .contact {
+        padding: 3rem 1.2rem;
+      }
 
       footer {
         padding: 1.5rem 1.2rem;
@@ -743,16 +847,25 @@
         text-align: center;
       }
 
-      .section-header { margin-bottom: 2rem; }
+      .section-header {
+        margin-bottom: 2rem;
+      }
     }
 
     @media (max-width: 400px) {
-      .hero-name { font-size: clamp(2.6rem, 13vw, 3.5rem); }
-      .hero-inline-img { max-width: 200px; }
+      .hero-name {
+        font-size: clamp(2.6rem, 13vw, 3.5rem);
+      }
+
+      .hero-inline-img {
+        max-width: 200px;
+      }
 
       .project-year,
       .project-year-2023,
-      .project-year-2026 { font-size: 1rem; }
+      .project-year-2026 {
+        font-size: 1rem;
+      }
     }
   </style>
 </head>
@@ -861,7 +974,7 @@
     <div class="slideshow-wrap reveal">
       <div class="slideshow" id="mainSlideshow">
 
-        <!-- Slide 1 — preload auto so it's ready immediately -->
+        <!-- Slide 1 — Video -->
         <div class="slide active">
           <video muted loop playsinline webkit-playsinline preload="auto">
             <source src="Videos/Video1-1.mp4" type="video/mp4">
@@ -872,7 +985,14 @@
           </div>
         </div>
 
-        <!-- Slides 2 & 3 — preload metadata only until activated -->
+        <!-- Slide 2 — Image after Video 1 -->
+        <div class="slide slide-image" style="--slide-bg: url('Images/2023/Technical_2023.png')">
+          <img src="Images/2023/Technical_2023.png" alt="The Unity Nook — Detail">
+          <div class="slide-caption">
+          </div>
+        </div>
+
+        <!-- Slide 3 — Video -->
         <div class="slide">
           <video muted loop playsinline webkit-playsinline preload="metadata">
             <source src="Videos/Video2-1.mp4" type="video/mp4">
@@ -883,6 +1003,14 @@
           </div>
         </div>
 
+        <!-- Slide 4 — Image after Video 2 -->
+        <div class="slide slide-image" style="--slide-bg: url('Images/2025/Technical_2025.png')">
+          <img src="Images/2025/Technical_2025.png" alt="The Knowledge Courtyard — Detail">
+          <div class="slide-caption">
+          </div>
+        </div>
+
+        <!-- Slide 5 — Video -->
         <div class="slide">
           <video muted loop playsinline webkit-playsinline preload="metadata">
             <source src="Videos/Idp-1.mp4" type="video/mp4">
@@ -893,11 +1021,18 @@
           </div>
         </div>
 
+        <!-- Slide 6 — Image after Video 3 -->
+        <div class="slide slide-image" style="--slide-bg: url('Images/Slide-Image-3.jpg')">
+          <img src="Images/2026/SymbioticImage.JPG" alt="Symbiotic Ruin — Detail">
+          <div class="slide-caption">
+          </div>
+        </div>
+
       </div><!-- /.slideshow -->
 
       <div class="slideshow-controls">
         <div class="slide-dots" id="slideDots"></div>
-        <span class="slide-counter" id="slideCounter">01 / 03</span>
+        <span class="slide-counter" id="slideCounter">01 / 06</span>
         <div class="slide-arrows">
           <button class="arrow-btn" id="prevBtn" aria-label="Previous">
             <svg width="18" height="12" viewBox="0 0 18 12" fill="none">
@@ -927,37 +1062,49 @@
       <a class="project-card reveal" href="Images/2026/Symbiotic_Ruin.pdf" target="_blank" rel="noopener">
         <img src="Images/2026/Symbioticfront.JPG" alt="Symbiotic Ruin">
         <span class="project-year-2026">2026</span>
-        <div class="project-info"><h4>Symbiotic Ruin</h4></div>
+        <div class="project-info">
+          <h4>Symbiotic Ruin</h4>
+        </div>
       </a>
 
       <a class="project-card reveal" href="Images/2025/Final_2025.pdf" target="_blank" rel="noopener">
         <img src="Images/2025/2025Front.png" alt="The Knowledge Courtyard">
         <span class="project-year">2025</span>
-        <div class="project-info"><h4>The Knowledge Courtyard</h4></div>
+        <div class="project-info">
+          <h4>The Knowledge Courtyard</h4>
+        </div>
       </a>
 
       <a class="project-card reveal" href="Images/2024/final_doc_2024.pdf" target="_blank" rel="noopener">
         <img src="Images/2024/2024Front.png" alt="The Octave">
         <span class="project-year">2024</span>
-        <div class="project-info"><h4>The Octave</h4></div>
+        <div class="project-info">
+          <h4>The Octave</h4>
+        </div>
       </a>
 
       <a class="project-card reveal" href="Images/2023/Final_2023_new.pdf" target="_blank" rel="noopener">
         <img src="Images/2023/PhysicalModelFrontPage.png" alt="The Unity Nook">
         <span class="project-year-2023">2023</span>
-        <div class="project-info"><h4>The Unity Nook</h4></div>
+        <div class="project-info">
+          <h4>The Unity Nook</h4>
+        </div>
       </a>
 
       <div class="project-card reveal">
         <img src="Images/2026/Inprogresspg.png" alt="In progress">
         <span class="project-year">ETA - 2026</span>
-        <div class="project-info"><h4></h4></div>
+        <div class="project-info">
+          <h4></h4>
+        </div>
       </div>
 
       <div class="project-card reveal">
         <img src="Images/2026/Inprogresspg.png" alt="In progress">
         <span class="project-year">ETA - 2026</span>
-        <div class="project-info"><h4></h4></div>
+        <div class="project-info">
+          <h4></h4>
+        </div>
       </div>
 
     </div>
@@ -979,7 +1126,9 @@
       <div class="contact-item">
         <p class="contact-item-label">Email</p>
         <p class="contact-item-value">
-          <a href="mailto:dewetchiara@gmail.com">dewetchiara@gmail.com</a>
+          <a href="https://mail.google.com/mail/?view=cm&to=dewetchiara@gmail.com" target="_blank" rel="noopener">
+            dewetchiara@gmail.com
+          </a>
         </p>
       </div>
       <div class="contact-item">
@@ -993,7 +1142,8 @@
       <div class="contact-item">
         <p class="contact-item-label">LinkedIn</p>
         <p class="contact-item-value">
-          <a href="https://www.linkedin.com/in/chiara-de-wet-965a0b257" target="_blank" rel="noopener">@chiara-de-wet</a>
+          <a href="https://www.linkedin.com/in/chiara-de-wet-965a0b257" target="_blank"
+            rel="noopener">@chiara-de-wet</a>
         </p>
       </div>
     </div>
@@ -1031,7 +1181,7 @@
       if (promise !== undefined) {
         promise.catch(() => {
           const retry = () => {
-            video.play().catch(() => {});
+            video.play().catch(() => { });
           };
           document.addEventListener('click', retry, { once: true });
           document.addEventListener('touchstart', retry, { once: true });
@@ -1053,8 +1203,8 @@
       current = (n + slides.length) % slides.length;
       slides[current].classList.add('active');
       dotsContainer.children[current].classList.add('active');
-      const pad = x => String(x + 1).padStart(2, '0');
-      counter.textContent = `${pad(current)} / ${pad(slides.length - 1)}`;
+      const pad = x => String(x).padStart(2, '0');
+      counter.textContent = `${pad(current + 1)} / ${pad(slides.length)}`;
       pauseOtherVideos(slides[current]);
       playSlideVideo(slides[current]);
     }
@@ -1064,7 +1214,7 @@
 
     document.addEventListener('keydown', e => {
       if (e.key === 'ArrowRight') { goTo(current + 1); resetAuto(); }
-      if (e.key === 'ArrowLeft')  { goTo(current - 1); resetAuto(); }
+      if (e.key === 'ArrowLeft') { goTo(current - 1); resetAuto(); }
     });
 
     function startAuto() { autoTimer = setInterval(() => goTo(current + 1), 25000); }
